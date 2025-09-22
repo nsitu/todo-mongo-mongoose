@@ -6,11 +6,16 @@ import './database.js'
 import express from 'express'
 // Initialize Express app
 const app = express()
+
+
+// Serve static files from /public folder (useful when running Node locally, optional on Vercel).
+app.use(express.static('public'))
+// Define index.html as the root explicitly (useful on Vercel, optional when running Node locally).
+app.get('/', (req, res) => { res.redirect('/index.html') })
+
+
 // Enable express to parse JSON data
 app.use(express.json())
-// Tell express to serve/publish all our static assets 
-// This includes everything in the /public folder (our frontend)
-app.use(express.static( 'public'))
 
 // Our API is defined in a separate module to keep things tidy.
 // Let's import our API endpoints and activate them.
@@ -18,6 +23,7 @@ import apiRoutes from './routes/api.js'
 app.use('/', apiRoutes)
 
 
-// Express starts listening only after MongoDB connects
-app.listen(process.env.PORT,() => console.log("Express is Live."))
-
+const port = 3000
+app.listen(port, () => {
+    console.log(`Express is live at http://localhost:${port}`)
+})
