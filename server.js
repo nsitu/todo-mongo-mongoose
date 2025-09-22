@@ -13,7 +13,6 @@ app.use(express.static('public'))
 // Define index.html as the root explicitly (useful on Vercel, optional when running Node locally).
 app.get('/', (req, res) => { res.redirect('/index.html') })
 
-
 // Enable express to parse JSON data
 app.use(express.json())
 
